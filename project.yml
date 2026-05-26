@@ -37,6 +37,8 @@ targets:
       path: PromptPolish/Info.plist
       properties:
         CFBundleDisplayName: PromptPolish
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         UILaunchScreen: {}
         NSMicrophoneUsageDescription: PromptPolish needs the microphone so you can dictate prompts.
         NSSpeechRecognitionUsageDescription: PromptPolish uses on-device speech recognition to turn your voice into text before polishing it into a prompt.
@@ -77,6 +79,8 @@ targets:
       path: PromptPolishKeyboard/Info.plist
       properties:
         CFBundleDisplayName: PromptPolish
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionAttributes:
             IsASCIICapable: false
