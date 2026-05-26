@@ -52,6 +52,7 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_ENTITLEMENTS: PromptPolish/PromptPolish.entitlements
+        TARGETED_DEVICE_FAMILY: "1"
     dependencies:
       - target: PromptPolishKeyboard
 
@@ -88,6 +89,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.velicheti.promptpolish.keyboard
         CODE_SIGN_ENTITLEMENTS: PromptPolishKeyboard/PromptPolishKeyboard.entitlements
+        TARGETED_DEVICE_FAMILY: "1"
 
 schemes:
   PromptPolish:
