@@ -24,11 +24,14 @@
 	<string>PromptPolish needs the microphone so you can dictate prompts.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>PromptPolish uses on-device speech recognition to turn your voice into text before polishing it into a prompt.</string>
-	<key>UIApplicationSupportedOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
 </dict>
 </plist>
