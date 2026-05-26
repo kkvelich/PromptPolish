@@ -12,6 +12,7 @@ settings:
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
     TARGETED_DEVICE_FAMILY: "1,2"
     CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: 32J9C9766C
     ENABLE_USER_SCRIPT_SANDBOXING: NO
 
 targets:
@@ -72,3 +73,18 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.velicheti.promptpolish.keyboard
         CODE_SIGN_ENTITLEMENTS: PromptPolishKeyboard/PromptPolishKeyboard.entitlements
+
+schemes:
+  PromptPolish:
+    build:
+      targets:
+        PromptPolish: all
+    run:
+      config: Debug
+      executable: PromptPolish
+    test:
+      config: Debug
+      targets:
+        - PromptPolishTests
+    archive:
+      config: Release
