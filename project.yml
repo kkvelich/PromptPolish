@@ -19,6 +19,12 @@ settings:
     CODE_SIGN_STYLE: Automatic
     DEVELOPMENT_TEAM: 32J9C9766C
     ENABLE_USER_SCRIPT_SANDBOXING: NO
+    # User-visible version. Bumped to 1.1 for the v2 feature set
+    # (polish style, target AI, languages, personal facts, Telugu).
+    MARKETING_VERSION: "1.1"
+    # Build number. Xcode's "Manage Version and Build Number" auto-bumps
+    # this on each Archive. Starts at 1 for the first 1.1 build.
+    CURRENT_PROJECT_VERSION: "1"
 
 targets:
   PromptPolish:
