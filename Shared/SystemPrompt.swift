@@ -150,12 +150,36 @@ enum SystemPrompt {
     ) -> String {
         var parts: [String] = []
 
-        // Current context
+        // Current context. We pre-compute common relative dates so the model doesn't
+        // have to do date arithmetic — LLMs reliably fail at "today + 1 day" math.
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.timeZone = timezone
         dateFormatter.dateFormat = "EEEE, MMMM d, yyyy"
-        let dateString = dateFormatter.string(from: now)
+
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timezone
+        calendar.locale = Locale(identifier: "en_US")
+        calendar.firstWeekday = 2 // Monday-first week
+
+        let today = calendar.startOfDay(for: now)
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
+        let dayAfterTomorrow = calendar.date(byAdding: .day, value: 2, to: today)!
+
+        // Week boundaries
+        let weekRange = calendar.dateInterval(of: .weekOfYear, for: today)!
+        let thisWeekStart = weekRange.start
+        let thisWeekEnd = calendar.date(byAdding: .day, value: -1, to: weekRange.end)! // inclusive end
+        let nextWeekStart = weekRange.end
+        let nextWeekEnd = calendar.date(byAdding: .day, value: 6, to: nextWeekStart)!
+
+        // Month boundaries
+        let monthRange = calendar.dateInterval(of: .month, for: today)!
+        let thisMonthEnd = calendar.date(byAdding: .day, value: -1, to: monthRange.end)!
+        let nextMonthStart = monthRange.end
+        let nextMonthInterval = calendar.dateInterval(of: .month, for: nextMonthStart)!
+        let nextMonthEnd = calendar.date(byAdding: .day, value: -1, to: nextMonthInterval.end)!
 
         let timeFormatter = DateFormatter()
         timeFormatter.locale = Locale(identifier: "en_US")
@@ -164,9 +188,18 @@ enum SystemPrompt {
         let timeString = timeFormatter.string(from: now)
 
         parts.append("""
-        Current context (resolve any relative time references using these):
-        - Today: \(dateString)
-        - Time: \(timeString)
+        Current context (use these to resolve any relative time references — do NOT compute dates yourself):
+        - Today: \(dateFormatter.string(from: today))
+        - Tomorrow: \(dateFormatter.string(from: tomorrow))
+        - Yesterday: \(dateFormatter.string(from: yesterday))
+        - Day after tomorrow: \(dateFormatter.string(from: dayAfterTomorrow))
+        - This week: \(dateFormatter.string(from: thisWeekStart)) — \(dateFormatter.string(from: thisWeekEnd))
+        - Next week: \(dateFormatter.string(from: nextWeekStart)) — \(dateFormatter.string(from: nextWeekEnd))
+        - This month (rest of): through \(dateFormatter.string(from: thisMonthEnd))
+        - Next month: \(dateFormatter.string(from: nextMonthStart)) — \(dateFormatter.string(from: nextMonthEnd))
+        - Current time: \(timeString)
+
+        When a relative reference is in the user's input, copy the exact resolved date from the list above. Do not recalculate.
         """)
 
         // Personal facts (if any)
