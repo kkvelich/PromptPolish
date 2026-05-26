@@ -127,8 +127,13 @@ final class AnthropicClient {
 
     // MARK: - Non-streaming (used by keyboard extension)
 
-    func polish(_ rawText: String, model: AnthropicModel) async throws -> PolishResult {
-        let request = try buildRequest(rawText: rawText, model: model, stream: false)
+    func polish(
+        _ rawText: String,
+        model: AnthropicModel,
+        settings: AppSettings = .shared,
+        now: Date = Date()
+    ) async throws -> PolishResult {
+        let request = try buildRequest(rawText: rawText, model: model, stream: false, settings: settings, now: now)
         let (data, response) = try await session.data(for: request)
 
         guard let http = response as? HTTPURLResponse else {
@@ -160,11 +165,16 @@ final class AnthropicClient {
 
     // MARK: - Streaming (used by host app)
 
-    func polishStream(_ rawText: String, model: AnthropicModel) -> AsyncThrowingStream<PolishEvent, Error> {
+    func polishStream(
+        _ rawText: String,
+        model: AnthropicModel,
+        settings: AppSettings = .shared,
+        now: Date = Date()
+    ) -> AsyncThrowingStream<PolishEvent, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let request = try buildRequest(rawText: rawText, model: model, stream: true)
+                    let request = try buildRequest(rawText: rawText, model: model, stream: true, settings: settings, now: now)
                     let (bytes, response) = try await session.bytes(for: request)
 
                     guard let http = response as? HTTPURLResponse else {
@@ -199,7 +209,13 @@ final class AnthropicClient {
 
     // MARK: - Shared request builder
 
-    private func buildRequest(rawText: String, model: AnthropicModel, stream: Bool) throws -> URLRequest {
+    private func buildRequest(
+        rawText: String,
+        model: AnthropicModel,
+        stream: Bool,
+        settings: AppSettings,
+        now: Date
+    ) throws -> URLRequest {
         guard let apiKey = KeychainHelper.loadAPIKey(), !apiKey.isEmpty else {
             throw AnthropicError.missingAPIKey
         }
@@ -210,6 +226,17 @@ final class AnthropicClient {
         request.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
+        // System is split into:
+        //   [0] cached base — large, identical across calls, marked cache_control: ephemeral
+        //   [1] variable suffix — per-call (style, target, language, personal facts, current date)
+        let variableSuffix = SystemPrompt.variableSuffix(
+            style: settings.polishStyle,
+            targetPlatform: settings.targetPlatform,
+            outputLanguageName: settings.resolvedOutputLanguageName,
+            personalFacts: settings.personalFacts,
+            now: now
+        )
+
         var body: [String: Any] = [
             "model": model.rawValue,
             "max_tokens": 1024,
@@ -217,8 +244,12 @@ final class AnthropicClient {
             "system": [
                 [
                     "type": "text",
-                    "text": SystemPrompt.text,
+                    "text": SystemPrompt.cachedBase,
                     "cache_control": ["type": "ephemeral"]
+                ],
+                [
+                    "type": "text",
+                    "text": variableSuffix
                 ]
             ],
             "messages": [

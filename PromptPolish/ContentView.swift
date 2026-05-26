@@ -8,7 +8,7 @@ struct ContentView: View {
     @State private var statusLine: String = ""
     @State private var errorMessage: String?
     @State private var showSettings: Bool = false
-    @AppStorage("selectedModel") private var selectedModelRaw: String = AnthropicModel.sonnet46.rawValue
+    @Bindable private var settings = AppSettings.shared
 
     var body: some View {
         NavigationStack {
@@ -136,7 +136,7 @@ struct ContentView: View {
     }
 
     private func polish() {
-        let model = AnthropicModel(rawValue: selectedModelRaw) ?? .sonnet46
+        let model = AnthropicModel(rawValue: settings.selectedModelRaw) ?? .sonnet46
         let rawText = transcript.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !rawText.isEmpty else { return }
         isPolishing = true
@@ -146,7 +146,7 @@ struct ContentView: View {
 
         Task {
             do {
-                for try await event in AnthropicClient.shared.polishStream(rawText, model: model) {
+                for try await event in AnthropicClient.shared.polishStream(rawText, model: model, settings: settings) {
                     switch event {
                     case .chunk(let text):
                         polished += text

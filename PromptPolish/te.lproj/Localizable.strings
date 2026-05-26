@@ -1,0 +1,57 @@
+/* Telugu translations. Keys match English strings used in SwiftUI Text(...) literals. */
+
+/* Onboarding */
+"Welcome to PromptPolish" = "ప్రాంప్ట్ పాలిష్‌కు స్వాగతం";
+"Dictate rough ideas. Get clean AI prompts." = "మీ ఆలోచనలను మాట్లాడండి. చక్కని AI ప్రశ్నలను పొందండి.";
+"1. Add your Anthropic API key" = "1. మీ Anthropic API కీని జోడించండి";
+"Get one at console.anthropic.com → Settings → API Keys. Fund $5 in credits; it will last months for personal use." = "console.anthropic.com → Settings → API Keys వద్ద ఒకటి పొందండి. $5 క్రెడిట్‌లు పెట్టండి; వ్యక్తిగత ఉపయోగానికి నెలల పాటు ఉంటుంది.";
+"2. Enable the PromptPolish keyboard" = "2. ప్రాంప్ట్ పాలిష్ కీబోర్డ్‌ను ఆన్ చేయండి";
+"Settings → General → Keyboard → Keyboards → Add New Keyboard → PromptPolish. Then tap it and turn on \"Allow Full Access\" so it can call the Claude API." = "Settings → General → Keyboard → Keyboards → Add New Keyboard → PromptPolish. ఆ తర్వాత దాన్ని తాకి \"Allow Full Access\" ఆన్ చేయండి, Claude APIకి కాల్ చేయగలగడానికి.";
+"Open iOS Settings" = "iOS సెట్టింగ్‌లను తెరవండి";
+"Continue" = "కొనసాగండి";
+"Paste an API key first." = "ముందుగా API కీని పేస్ట్ చేయండి.";
+
+/* ContentView */
+"Record" = "రికార్డ్ చేయండి";
+"Stop" = "ఆపండి";
+"Transcript" = "ట్రాన్స్‌క్రిప్ట్";
+"Improve with Claude" = "Claude తో మెరుగుపరచండి";
+"Polishing…" = "మెరుగుపరుస్తోంది…";
+"Polished" = "మెరుగుపరిచినది";
+"Copy" = "కాపీ చేయండి";
+
+/* Settings */
+"Settings" = "సెట్టింగ్‌లు";
+"Done" = "పూర్తయింది";
+"Anthropic API Key" = "Anthropic API కీ";
+"Save" = "సేవ్ చేయండి";
+"Saved." = "సేవ్ అయింది.";
+
+"Polish Style" = "మెరుగుపరిచే శైలి";
+"Style" = "శైలి";
+
+"Target AI" = "లక్ష్య AI";
+
+"Language" = "భాష";
+"Input language" = "ఇన్‌పుట్ భాష";
+"Output language" = "అవుట్‌పుట్ భాష";
+
+"About You" = "మీ గురించి";
+"Your name" = "మీ పేరు";
+"Family / context (one line)" = "కుటుంబం / సందర్భం (ఒక లైన్)";
+"Sign-off" = "సైన్-ఆఫ్";
+
+"Model" = "మోడల్";
+
+"Keyboard Extension" = "కీబోర్డ్ ఎక్స్‌టెన్షన్";
+
+/* Polish style names */
+"Compact" = "సంక్షిప్తం";
+"Standard" = "ప్రామాణికం";
+"Detailed" = "విస్తృతం";
+
+/* Languages */
+"Auto (match device)" = "ఆటో (పరికరానికి అనుగుణంగా)";
+"English" = "English";
+"Telugu (తెలుగు)" = "తెలుగు";
+"Same as input" = "ఇన్‌పుట్ లాగా";

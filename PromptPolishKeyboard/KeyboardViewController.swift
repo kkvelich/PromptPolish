@@ -12,8 +12,7 @@ class KeyboardViewController: UIInputViewController {
     private var originalTextBeforePolish: String = ""
 
     private var selectedModel: AnthropicModel {
-        let raw = UserDefaults.standard.string(forKey: "selectedModel") ?? AnthropicModel.sonnet46.rawValue
-        return AnthropicModel(rawValue: raw) ?? .sonnet46
+        AnthropicModel(rawValue: AppSettings.shared.selectedModelRaw) ?? .sonnet46
     }
 
     override func viewDidLoad() {

@@ -8,10 +8,18 @@ final class SpeechService: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var errorMessage: String?
 
-    private let recognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
+    private var recognizer: SFSpeechRecognizer?
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
+
+    /// Builds a recognizer for the currently-resolved input language each time recording starts.
+    /// This way, changing language in Settings takes effect on the next recording without a restart.
+    private func buildRecognizerForCurrentSettings() -> SFSpeechRecognizer? {
+        let resolved = AppSettings.shared.resolvedInputLanguage
+        let localeId = resolved.speechLocaleIdentifier ?? "en-US"
+        return SFSpeechRecognizer(locale: Locale(identifier: localeId))
+    }
 
     func requestAuthorization() async -> Bool {
         let speechStatus = await withCheckedContinuation { (cont: CheckedContinuation<SFSpeechRecognizerAuthorizationStatus, Never>) in
@@ -65,8 +73,9 @@ final class SpeechService: ObservableObject {
         }
         self.request = request
 
+        recognizer = buildRecognizerForCurrentSettings()
         guard let recognizer, recognizer.isAvailable else {
-            throw NSError(domain: "SpeechService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Speech recognizer unavailable on this device."])
+            throw NSError(domain: "SpeechService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Speech recognizer unavailable for the selected language. For Telugu, an internet connection is required."])
         }
 
         let inputNode = audioEngine.inputNode

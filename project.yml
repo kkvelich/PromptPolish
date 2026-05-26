@@ -6,6 +6,11 @@ options:
   developmentLanguage: en
   createIntermediateGroups: true
 
+# Localization regions — XcodeGen creates a localized variant group for .strings files in *.lproj
+knownRegions:
+  - en
+  - te
+
 settings:
   base:
     SWIFT_VERSION: "5.0"
@@ -92,3 +97,12 @@ schemes:
         - PromptPolishTests
     archive:
       config: Release
+
+  PromptPolishTests:
+    build:
+      targets:
+        PromptPolishTests: all
+    test:
+      config: Debug
+      targets:
+        - PromptPolishTests

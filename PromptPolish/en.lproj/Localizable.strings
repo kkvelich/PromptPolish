@@ -1,0 +1,57 @@
+/* English strings — used as keys in code. Telugu translations live in te.lproj. */
+
+/* Onboarding */
+"Welcome to PromptPolish" = "Welcome to PromptPolish";
+"Dictate rough ideas. Get clean AI prompts." = "Dictate rough ideas. Get clean AI prompts.";
+"1. Add your Anthropic API key" = "1. Add your Anthropic API key";
+"Get one at console.anthropic.com → Settings → API Keys. Fund $5 in credits; it will last months for personal use." = "Get one at console.anthropic.com → Settings → API Keys. Fund $5 in credits; it will last months for personal use.";
+"2. Enable the PromptPolish keyboard" = "2. Enable the PromptPolish keyboard";
+"Settings → General → Keyboard → Keyboards → Add New Keyboard → PromptPolish. Then tap it and turn on \"Allow Full Access\" so it can call the Claude API." = "Settings → General → Keyboard → Keyboards → Add New Keyboard → PromptPolish. Then tap it and turn on \"Allow Full Access\" so it can call the Claude API.";
+"Open iOS Settings" = "Open iOS Settings";
+"Continue" = "Continue";
+"Paste an API key first." = "Paste an API key first.";
+
+/* ContentView */
+"Record" = "Record";
+"Stop" = "Stop";
+"Transcript" = "Transcript";
+"Improve with Claude" = "Improve with Claude";
+"Polishing…" = "Polishing…";
+"Polished" = "Polished";
+"Copy" = "Copy";
+
+/* Settings */
+"Settings" = "Settings";
+"Done" = "Done";
+"Anthropic API Key" = "Anthropic API Key";
+"Save" = "Save";
+"Saved." = "Saved.";
+
+"Polish Style" = "Polish Style";
+"Style" = "Style";
+
+"Target AI" = "Target AI";
+
+"Language" = "Language";
+"Input language" = "Input language";
+"Output language" = "Output language";
+
+"About You" = "About You";
+"Your name" = "Your name";
+"Family / context (one line)" = "Family / context (one line)";
+"Sign-off" = "Sign-off";
+
+"Model" = "Model";
+
+"Keyboard Extension" = "Keyboard Extension";
+
+/* Polish style names */
+"Compact" = "Compact";
+"Standard" = "Standard";
+"Detailed" = "Detailed";
+
+/* Languages */
+"Auto (match device)" = "Auto (match device)";
+"English" = "English";
+"Telugu (తెలుగు)" = "Telugu (తెలుగు)";
+"Same as input" = "Same as input";
