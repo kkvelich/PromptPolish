@@ -39,6 +39,17 @@ targets:
     dependencies:
       - target: PromptPolishKeyboard
 
+  PromptPolishTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - PromptPolishTests
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.velicheti.promptpolish.tests
+        GENERATE_INFOPLIST_FILE: YES
+
   PromptPolishKeyboard:
     type: app-extension
     platform: iOS

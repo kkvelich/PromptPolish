@@ -136,7 +136,7 @@ struct ContentView: View {
     }
 
     private func polish() {
-        let model = AnthropicModel(rawValue: selectedModelRaw) ?? .haiku45
+        let model = AnthropicModel(rawValue: selectedModelRaw) ?? .sonnet46
         let rawText = transcript.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !rawText.isEmpty else { return }
         isPolishing = true
@@ -146,9 +146,14 @@ struct ContentView: View {
 
         Task {
             do {
-                let result = try await AnthropicClient.shared.polish(rawText, model: model)
-                polished = result.text
-                statusLine = "in: \(result.inputTokens)  out: \(result.outputTokens)  cache read: \(result.cacheReadTokens)  cache create: \(result.cacheCreationTokens)"
+                for try await event in AnthropicClient.shared.polishStream(rawText, model: model) {
+                    switch event {
+                    case .chunk(let text):
+                        polished += text
+                    case .done(let result):
+                        statusLine = "in: \(result.inputTokens)  out: \(result.outputTokens)  cache read: \(result.cacheReadTokens)  cache create: \(result.cacheCreationTokens)"
+                    }
+                }
             } catch {
                 errorMessage = error.localizedDescription
             }
