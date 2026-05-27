@@ -22,9 +22,10 @@ settings:
     # User-visible version. Bumped to 1.1 for the v2 feature set
     # (polish style, target AI, languages, personal facts, Telugu).
     MARKETING_VERSION: "1.1"
-    # Build number. Xcode's "Manage Version and Build Number" auto-bumps
-    # this on each Archive. Starts at 1 for the first 1.1 build.
-    CURRENT_PROJECT_VERSION: "1"
+    # Build number. Bumped manually for clarity (Xcode's auto-bump can
+    # get confused when CURRENT_PROJECT_VERSION is set explicitly).
+    # 1.1 (2): Keychain fallback for Mac "Designed for iPhone" mode.
+    CURRENT_PROJECT_VERSION: "2"
 
 targets:
   PromptPolish:
